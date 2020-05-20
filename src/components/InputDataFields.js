@@ -14,13 +14,8 @@ const InputDataFields = (props) => {
   const optionList =
     tempContext && tempContext.state && tempContext.state.countryCodes
       ? tempContext.state.countryCodes.all.map((countryData, index) => {
-          const selectRo = countryData.alpha2 === "RO" ? "SELECTED" : "";
           return (
-            <option
-              value={countryData.alpha2}
-              key={`optionKey${index}`}
-              defaultValue={selectRo}
-            >
+            <option value={countryData.alpha2} key={`optionKey${index}`}>
               {countryData.name}
             </option>
           );
@@ -38,6 +33,7 @@ const InputDataFields = (props) => {
         <CountryWrapper>
           Tara:
           <select
+            defaultValue={"RO"}
             onChange={(e) => {
               setCountry(e.target.value);
             }}
@@ -53,7 +49,7 @@ const InputDataFields = (props) => {
             value={city}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                requestWeatherData()
+                requestWeatherData();
               }
             }}
           />
