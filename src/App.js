@@ -7,20 +7,13 @@ import { useGetWeatherData } from "./other/GetWeatherData";
 
 function App() {
   const { Provider } = myContext;
-  const [city, setCity] = useState("Cluj Napoca");
-  const [countryCode, setCountryCode] = useState("Ro");
-  const requestUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&APPID=ad232c5285db15075e3e2ece306f1649`;
-  const [state, makeRequest] = useGetWeatherData(requestUrl);
-  
-  const getInputData = (country, city) => {
-    setCity(city);
-    setCountryCode(country);
-  };
+  const [state, makeRequest] = useGetWeatherData();
+
   return (
     <Provider value={{ state, makeRequest }}>
       <div className="App">
         <header className="App-header">
-          <InputDataFields getInputData={getInputData} />
+          <InputDataFields />
           <WeatherData />
         </header>
       </div>
