@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { myContext } from "../other/reducer";
-import {WeatherDescription} from "../other/styledComponents";
+import { WeatherDescription } from "../other/styledComponents";
 
 const WeatherData = () => {
   const tempContext = useContext(myContext);
@@ -18,6 +18,7 @@ const WeatherData = () => {
     : "";
   const pressure = weatherData ? weatherData.main.pressure : "";
   const humidity = weatherData ? weatherData.main.humidity : "";
+  const icon = weatherData ? weatherData.weather[0].icon : "";
 
   const weatherDescription = weatherData
     ? weatherData.weather[0].description
@@ -26,7 +27,13 @@ const WeatherData = () => {
   if (temperature)
     return (
       <>
-        <WeatherDescription>{weatherDescription}</WeatherDescription>
+        <WeatherDescription>
+          {weatherDescription}
+          <img
+            src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+            alt="weather icon"
+          />
+        </WeatherDescription>
         <p>
           <b>Temperatura:</b> {temperature}
         </p>
@@ -42,8 +49,6 @@ const WeatherData = () => {
         <p>
           <b>Umiditate:</b> {humidity}
         </p>
-        
-       
       </>
     );
   else return <></>;
