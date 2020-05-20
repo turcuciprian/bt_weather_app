@@ -5,7 +5,6 @@ import { WeatherDescription } from "../other/styledComponents";
 const WeatherData = () => {
   const tempContext = useContext(myContext);
   const { weatherData } = tempContext.state;
-  
 
   const temperature =
     weatherData && weatherData.main && weatherData.main.temp
@@ -35,13 +34,16 @@ const WeatherData = () => {
       ? weatherData.weather[0].icon
       : "";
 
-  const weatherDescription = weatherData
-    ? weatherData.weather[0].description
-    : "";
+  const weatherDescription =
+    weatherData &&
+    weatherData.weather &&
+    weatherData.weather[0] &&
+    weatherData.weather[0].description
+      ? weatherData.weather[0].description
+      : "";
 
-  if (temperature){
-    if (weatherData.cod === 404)
-    return <>City Not Found</>
+  if (temperature) {
+    if (weatherData.cod === 404) return <>City Not Found</>;
     return (
       <>
         <WeatherDescription>
@@ -68,7 +70,11 @@ const WeatherData = () => {
         </div>
       </>
     );
+  } else {
+    if (weatherData === "Error") {
+      return <WeatherDescription>City Not Found</WeatherDescription>;
+    }
+    return <></>;
   }
-  else return <></>;
 };
 export default WeatherData;

@@ -13,7 +13,7 @@ export const useGetWeatherData = () => {
         const response = await axios.get(url);
         dispatch(success(response.data));
       } catch (e) {
-        dispatch(error(e));
+        dispatch(error(e.name));
       }
     },
     [dispatch]
