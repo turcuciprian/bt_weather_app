@@ -1,13 +1,13 @@
 import { createContext } from "react";
 import { FETCHING, SUCCESS, ERROR } from "../actions/actionTypes";
-const countryCodes = require("countryCodes");
+const {countries} = require("country-data");
 
 export const myContext = createContext();
 
 export const initialState = {
   status: null,
   weatherData: null,
-  countryCodes,
+  countryCodes: countries,
 };
 
 export const reducer = (state = initialState, { type, response } = {}) => {

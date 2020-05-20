@@ -12,11 +12,11 @@ export const InputFieldsWrapper = styled.div`
       font-size:18px;
   }
 `;
-export const TaraWrapper = styled.div`
+export const CountryWrapper = styled.div`
   font-size: 14px;
   background-color: lightblue;
 `;
-export const OrasWrapper = styled.div`
+export const CityWrapper = styled.div`
 margin:10px 0 10px 0;
   font-size: 14px;
   background-color: lightblue;

@@ -1,30 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { myContext } from "../other/reducer";
 import {
   InputFieldsWrapper,
-  TaraWrapper,
-  OrasWrapper,
+  CountryWrapper,
+  CityWrapper,
 } from "../other/styledComponents";
-const InputDataFields = () => {
-  const [oras, setOras] = useState("Cluj Napoca");
+
+const InputDataFields = (props) => {
+  const tempContext = useContext(myContext);
+  const [city, setCity] = useState("Cluj Napoca");
+  const [country, setCountry] = useState("Ro");
+
+  const optionList =
+    tempContext && tempContext.state && tempContext.state.countryCodes
+      ? tempContext.state.countryCodes.all.map((countryData, index) => {
+          return (
+            <option value={countryData.alpha2} key={`optionKey${index}`}>
+              {countryData.name}
+            </option>
+          );
+        })
+      : [];
+
   return (
     <>
       <InputFieldsWrapper>
-        <p>Seteaza un oras si o tara:</p>
-        <TaraWrapper>
+        <p>Seteaza un oras si o Tara:</p>
+        <CountryWrapper>
           Tara:{" "}
-          <select>
-            <option value="ro">Romania</option>
+          <select
+            onSelect={(value) => {
+              setCountry(value);
+            }}
+          >
+            {optionList}
           </select>
-        </TaraWrapper>
-        <OrasWrapper>
-          Oras:{" "}
+        </CountryWrapper>
+        <CityWrapper>
+          Orasul :{" "}
           <input
-            Type="text"
-            onChange={(e) => setOras(e.target.value)}
-            value={oras}
+            type="text"
+            onChange={(e) => setCity(e.target.value)}
+            value={city}
           />
-        </OrasWrapper>
-        <button>Actualizeaza Vremea</button>
+        </CityWrapper>
+        <button
+          onClick={() => {
+            props.getInputData(city, country);
+            tempContext.makeRequest();
+          }}
+        >
+          Actualizeaza Vremea
+        </button>
       </InputFieldsWrapper>
     </>
   );
