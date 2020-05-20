@@ -5,26 +5,43 @@ import { WeatherDescription } from "../other/styledComponents";
 const WeatherData = () => {
   const tempContext = useContext(myContext);
   const { weatherData } = tempContext.state;
-  console.log(weatherData ? weatherData : "");
+  
 
-  const temperature = weatherData
-    ? Math.floor(weatherData.main.temp - 273.15)
-    : "";
-  const temp_min = weatherData
-    ? Math.floor(weatherData.main.temp_min - 273.15)
-    : "";
-  const temp_max = weatherData
-    ? Math.floor(weatherData.main.temp_max - 273.15)
-    : "";
-  const pressure = weatherData ? weatherData.main.pressure : "";
-  const humidity = weatherData ? weatherData.main.humidity : "";
-  const icon = weatherData ? weatherData.weather[0].icon : "";
+  const temperature =
+    weatherData && weatherData.main && weatherData.main.temp
+      ? Math.floor(weatherData.main.temp - 273.15)
+      : "";
+  const temp_min =
+    weatherData && weatherData.main && weatherData.main.temp_min
+      ? Math.floor(weatherData.main.temp_min - 273.15)
+      : "";
+  const temp_max =
+    weatherData && weatherData.main && weatherData.main.temp_max
+      ? Math.floor(weatherData.main.temp_max - 273.15)
+      : "";
+  const pressure =
+    weatherData && weatherData.main && weatherData.main.pressure
+      ? weatherData.main.pressure
+      : "";
+  const humidity =
+    weatherData && weatherData.main && weatherData.main.humidity
+      ? weatherData.main.humidity
+      : "";
+  const icon =
+    weatherData &&
+    weatherData.weather &&
+    weatherData.weather[0] &&
+    weatherData.weather[0].icon
+      ? weatherData.weather[0].icon
+      : "";
 
   const weatherDescription = weatherData
     ? weatherData.weather[0].description
     : "";
 
-  if (temperature)
+  if (temperature){
+    if (weatherData.cod === 404)
+    return <>City Not Found</>
     return (
       <>
         <WeatherDescription>
@@ -34,23 +51,24 @@ const WeatherData = () => {
             alt="weather icon"
           />
         </WeatherDescription>
-        <p>
-          <b>Temperatura:</b> {temperature}
-        </p>
-        <p>
-          <b>Minimul Zilei:</b> {temp_min}
-        </p>
-        <p>
-          <b>Maximul Zilei:</b> {temp_max}
-        </p>
-        <p>
-          <b>Presiune:</b> {pressure}
-        </p>
-        <p>
-          <b>Umiditate:</b> {humidity}
-        </p>
+        <div>
+          <b>Temperature:</b> {temperature}
+        </div>
+        <div>
+          <b>Minimum Temperature:</b> {temp_min}
+        </div>
+        <div>
+          <b>Max Temperature:</b> {temp_max}
+        </div>
+        <div>
+          <b>Pressure:</b> {pressure} hpa
+        </div>
+        <div>
+          <b>Humidity:</b> {humidity} %
+        </div>
       </>
     );
+  }
   else return <></>;
 };
 export default WeatherData;

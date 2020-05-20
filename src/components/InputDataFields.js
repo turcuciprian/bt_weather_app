@@ -29,9 +29,9 @@ const InputDataFields = (props) => {
   return (
     <>
       <InputFieldsWrapper>
-        <p>Seteaza un oras si o Tara:</p>
+        <p>Set a City and Country:</p>
         <CountryWrapper>
-          Tara:
+          Country:<br/>
           <select
             defaultValue={"RO"}
             onChange={(e) => {
@@ -42,7 +42,7 @@ const InputDataFields = (props) => {
           </select>
         </CountryWrapper>
         <CityWrapper>
-          Orasul :{" "}
+          City :<br/>
           <input
             type="text"
             onChange={(e) => setCity(e.target.value)}
@@ -55,7 +55,7 @@ const InputDataFields = (props) => {
           />
         </CityWrapper>
         <button onClick={() => requestWeatherData()}>
-          Actualizeaza Vremea
+          Update
         </button>
       </InputFieldsWrapper>
     </>
