@@ -54,7 +54,9 @@ const InputDataFields = (props) => {
             }}
           />
         </CityWrapper>
-        <button onClick={() => requestWeatherData}>Actualizeaza Vremea</button>
+        <button onClick={() => requestWeatherData()}>
+          Actualizeaza Vremea
+        </button>
       </InputFieldsWrapper>
     </>
   );

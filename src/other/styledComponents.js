@@ -21,3 +21,10 @@ margin:10px 0 10px 0;
   font-size: 14px;
   background-color: lightblue;
 `;
+
+
+export const WeatherDescription = styled.div`
+font-size:24px;
+padding:10px 0 10px 0;
+font-weight:bold;
+`;

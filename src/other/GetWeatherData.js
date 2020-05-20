@@ -11,7 +11,7 @@ export const useGetWeatherData = () => {
       dispatch(fetching());
       try {
         const response = await axios.get(url);
-        dispatch(success(response));
+        dispatch(success(response.data));
       } catch (e) {
         dispatch(error(e));
       }

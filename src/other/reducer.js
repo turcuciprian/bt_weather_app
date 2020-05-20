@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { FETCHING, SUCCESS, ERROR } from "../actions/actionTypes";
-const {countries} = require("country-data");
+const { countries } = require("country-data");
 
 export const myContext = createContext();
 
