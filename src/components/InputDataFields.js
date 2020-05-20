@@ -19,7 +19,7 @@ const InputDataFields = (props) => {
             <option
               value={countryData.alpha2}
               key={`optionKey${index}`}
-              selected={selectRo}
+              defaultValue={selectRo}
             >
               {countryData.name}
             </option>

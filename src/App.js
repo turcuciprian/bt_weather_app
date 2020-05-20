@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
 import InputDataFields from "./components/InputDataFields";
 import WeatherData from "./components/WeatherData";
