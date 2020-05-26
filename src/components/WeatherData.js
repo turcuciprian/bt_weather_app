@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
-import { myContext } from "../other/reducer";
+import React from "react";
 import { WeatherDescription } from "../other/styledComponents";
+import { useSelector } from "react-redux";
 
 const WeatherData = () => {
-  const tempContext = useContext(myContext);
-  const { weatherData } = tempContext.state;
+  const weatherData = useSelector((state) => state.weatherDataReducer).payload;
 
   const temperature =
     weatherData && weatherData.main && weatherData.main.temp

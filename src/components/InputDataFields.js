@@ -1,19 +1,24 @@
-import React, { useState, useContext } from "react";
-import { myContext } from "../other/reducer";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import allActions from "../actions/allActions";
 import {
   InputFieldsWrapper,
   CountryWrapper,
   CityWrapper,
 } from "../other/styledComponents";
 
-const InputDataFields = (props) => {
-  const tempContext = useContext(myContext);
-  const [city, setCity] = useState("Cluj Napoca");
-  const [country, setCountry] = useState("RO");
+const InputDataFields = () => {
+  const dispatch = useDispatch();
+  const inputDataFieldsObj = useSelector(
+    (state) => state.inputDataFieldsReducer
+  );
+  const [city, setCity] = useState(inputDataFieldsObj.city);
+  const [country, setCountry] = useState(inputDataFieldsObj.country);
 
   const optionList =
-    tempContext && tempContext.state && tempContext.state.countryCodes
-      ? tempContext.state.countryCodes.all.map((countryData, index) => {
+    inputDataFieldsObj && inputDataFieldsObj.countries
+      ? inputDataFieldsObj.countries.map((countryData, index) => {
           return (
             <option value={countryData.alpha2} key={`optionKey${index}`}>
               {countryData.name}
@@ -21,17 +26,20 @@ const InputDataFields = (props) => {
           );
         })
       : [];
+
   const requestWeatherData = () => {
-    tempContext.makeRequest(
-      `http://api.openweathermap.org/data/2.5/weather?q=${country},${city}&APPID=ad232c5285db15075e3e2ece306f1649`
-    );
+    dispatch(allActions.activateSagaWeatherWatcher({ city, country }));
   };
+  useEffect(() => {
+    dispatch(allActions.getCitiesWatcher());
+  }, [dispatch]);
   return (
     <>
       <InputFieldsWrapper>
         <p>Set a City and Country:</p>
         <CountryWrapper>
-          Country:<br/>
+          Country:
+          <br />
           <select
             defaultValue={"RO"}
             onChange={(e) => {
@@ -42,7 +50,7 @@ const InputDataFields = (props) => {
           </select>
         </CountryWrapper>
         <CityWrapper>
-          City :<br/>
+          City :<br />
           <input
             type="text"
             onChange={(e) => setCity(e.target.value)}
@@ -54,9 +62,7 @@ const InputDataFields = (props) => {
             }}
           />
         </CityWrapper>
-        <button onClick={() => requestWeatherData()}>
-          Update
-        </button>
+        <button onClick={() => requestWeatherData()}>Update</button>
       </InputFieldsWrapper>
     </>
   );
