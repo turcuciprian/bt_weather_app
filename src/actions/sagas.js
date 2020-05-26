@@ -14,7 +14,6 @@ const getWeatherData = function* (location) {
   yield put({ type: "WEATHER_DATA", payload: remoteData });
 };
 const getInputDataFieldsData = function* () {
-  console.log('asd')
   yield put({
     type: "INPUT_DATA",
     ...countries,
